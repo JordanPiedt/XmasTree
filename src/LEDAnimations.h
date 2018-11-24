@@ -8,7 +8,7 @@
 
 FASTLED_USING_NAMESPACE;
 
-#define NUM_LEDS 152
+#define NUM_LEDS 300
 
 class LEDAnimations : public AmbientBeatsLEDAnimations
 {

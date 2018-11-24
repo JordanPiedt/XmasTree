@@ -16,7 +16,7 @@ UDP udpMulticast;
 int udpPort = 47555;
 IPAddress udpIP(239,1,1,232);
 
-
+// runs once when board turns on
 void setup() {
 //    connectToRemote();
     audioEqualizer = new SpectrumEqualizerClient();
