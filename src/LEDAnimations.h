@@ -23,6 +23,10 @@ public:
     void clearAllLeds();
     void fillColor();
 
+    void initPixelStates();
+    void twinkle();
+    void redGreenWhiteSlide();
+
     void randomSilon();
     void rainbow();
     void rainbowSlide();

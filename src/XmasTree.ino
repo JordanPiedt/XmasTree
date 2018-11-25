@@ -24,8 +24,10 @@ void setup() {
     cloudFunctions = new AmbientBeatsCloudFunctions(animations);
 
     cloudFunctions->setupCloudModeFunctions();
+    delay(3000);
 
     FastLED.addLeds<LED_TYPE, BORDER_LED_PIN, COLOR_ORDER>(animations->leds, NUM_LEDS).setCorrection(TypicalLEDStrip);
+    //animations.initPixelStates();
 }
 
 void loop() {

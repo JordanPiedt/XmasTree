@@ -8,47 +8,78 @@ CRGB leds[NUM_LEDS];
 
 typedef void (LEDAnimations::*AnimationList)();
 
-AnimationList animationsAudioReactive[] = {&LEDAnimations::waterfall, &LEDAnimations::equalizerBorderOnly};
-
 AnimationList animationsRails[] = {&LEDAnimations::sinelon, &LEDAnimations::confetti, &LEDAnimations::juggle,
                                    &LEDAnimations::fillColor, &LEDAnimations::rainbow,
                                    &LEDAnimations::rainbowSlide,
                                    &LEDAnimations::waterfallRainbowBorder};
 
 LEDAnimations::LEDAnimations(SpectrumEqualizerClient *eq) : AmbientBeatsLEDAnimations(eq) {
-    animationCount = ARRAY_SIZE(animationsAudioReactive);
+    animationCount = ARRAY_SIZE(animationsRails);
 }
 
 int LEDAnimations::runAnimation() {
-    equalizer->readAudioFrequencies();
-    if (audioReactiveOn) {
-        (this->*animationsAudioReactive[animation])();
-    } else {
-        (this->*animationsRails[animation])();
-    }
+  (this->*animationsRails[animation])();
 }
 
 int LEDAnimations::toggleAudioReactive() {
-    audioReactiveOn = !audioReactiveOn;
-    animation = 0;
-
-    if (audioReactiveOn) {
-        animationCount = ARRAY_SIZE(animationsAudioReactive) - 1;
-    } else {
-        animationCount = ARRAY_SIZE(animationsRails) - 1;
-    }
-
-    return audioReactiveOn;
+  return 0;
 }
 
 void LEDAnimations::clearAllLeds() {
-    for (uint8_t j = 0; j < NUM_LEDS; j++) {
-        leds[j] = 0;
-    }
+    fill_solid(leds, NUM_LEDS, CRGB::Black);
 }
 
 void LEDAnimations::fillColor() {
     fill_solid(leds, NUM_LEDS, hue);
+}
+//
+// enum { SteadyDim, GettingBrighter, GettingDimmerAgain };
+// uint8_t PixelState[NUM_LEDS];
+//
+// void initPixelStates()
+// {
+//   memset( PixelState, sizeof(PixelState), SteadyDim); // initialize all the pixels to SteadyDim.
+//   fill_solid( leds, NUM_LEDS, BASE_COLOR);
+// }
+//
+void LEDAnimations::twinkle(){
+//   for( uint16_t i = 0; i < NUM_LEDS; i++) {
+//     if( PixelState[i] == SteadyDim) {
+//       // this pixels is currently: SteadyDim
+//       // so we randomly consider making it start getting brighter
+//       if( random8() < CHANCE_OF_TWINKLE) {
+//         PixelState[i] = GettingBrighter;
+//       }
+//
+//     } else if( PixelState[i] == GettingBrighter ) {
+//       // this pixels is currently: GettingBrighter
+//       // so if it's at peak color, switch it to getting dimmer again
+//       if( leds[i] >= PEAK_COLOR ) {
+//         PixelState[i] = GettingDimmerAgain;
+//       } else {
+//         // otherwise, just keep brightening it:
+//         leds[i] += DELTA_COLOR_UP;
+//       }
+//
+//     } else { // getting dimmer again
+//       // this pixels is currently: GettingDimmerAgain
+//       // so if it's back to base color, switch it to steady dim
+//       if( leds[i] <= BASE_COLOR ) {
+//         leds[i] = BASE_COLOR; // reset to exact base color, in case we overshot
+//         PixelState[i] = SteadyDim;
+//       } else {
+//         // otherwise, just keep dimming it down:
+//         leds[i] -= DELTA_COLOR_DOWN;
+//       }
+//     }
+ }
+
+
+
+
+
+void LEDAnimations::redGreenWhiteSlide(){
+
 }
 
 void LEDAnimations::rainbow() {
@@ -63,14 +94,8 @@ void LEDAnimations::rainbowSlide() {
 // random colored speckles that blink in and fade smoothly
 void LEDAnimations::confetti() {
     uint8_t position = random16(NUM_LEDS);
-    int frequencyValue = equalizer->frequenciesLeftChannel[frequencyMode[0]];
-    uint16_t frequencyThreshold = clampSensitivity(sensitivity);
-
     fadeToBlackBy(leds, NUM_LEDS, 10);
-
-    if (!audioReactiveOn || frequencyValue > frequencyThreshold) {
-        leds[position] += CHSV(hue + random8(64), saturation, brightness);
-    }
+    leds[position] += CHSV(hue + random8(64), saturation, brightness);
 }
 
 // a colored dot sweeping back and forth, with fading trails
