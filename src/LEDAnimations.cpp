@@ -15,6 +15,7 @@ AnimationList animationsRails[] = {&LEDAnimations::confetti, &LEDAnimations::sin
 
 LEDAnimations::LEDAnimations(SpectrumEqualizerClient *eq) : AmbientBeatsLEDAnimations(eq) {
     animationCount = ARRAY_SIZE(animationsRails);
+    audioReactiveOn = false;
 }
 
 int LEDAnimations::runAnimation() {
