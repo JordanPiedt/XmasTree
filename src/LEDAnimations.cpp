@@ -8,7 +8,7 @@ CRGB leds[NUM_LEDS];
 
 typedef void (LEDAnimations::*AnimationList)();
 
-AnimationList animationsRails[] = {&LEDAnimations::sinelon, &LEDAnimations::confetti, &LEDAnimations::juggle,
+AnimationList animationsRails[] = {&LEDAnimations::confetti, &LEDAnimations::sinelon, &LEDAnimations::juggle,
                                    &LEDAnimations::fillColor, &LEDAnimations::rainbow,
                                    &LEDAnimations::rainbowSlide,
                                    &LEDAnimations::waterfallRainbowBorder};
@@ -93,9 +93,10 @@ void LEDAnimations::rainbowSlide() {
 
 // random colored speckles that blink in and fade smoothly
 void LEDAnimations::confetti() {
-    uint8_t position = random16(NUM_LEDS);
-    fadeToBlackBy(leds, NUM_LEDS, 10);
-    leds[position] += CHSV(hue + random8(64), saturation, brightness);
+    uint8_t position = random8(NUM_LEDS);
+    fadeToBlackBy(leds, NUM_LEDS, 50);
+    leds[position] += CHSV(hue, saturation, brightness);
+    delay(50);
 }
 
 // a colored dot sweeping back and forth, with fading trails
