@@ -16,6 +16,9 @@ AnimationList animationsRails[] = {&LEDAnimations::confetti, &LEDAnimations::sin
 LEDAnimations::LEDAnimations(SpectrumEqualizerClient *eq) : AmbientBeatsLEDAnimations(eq) {
     animationCount = ARRAY_SIZE(animationsRails);
     audioReactiveOn = false;
+    hue = 64;
+    brightness = 120;
+    saturation = 150;
 }
 
 int LEDAnimations::runAnimation() {
@@ -31,7 +34,7 @@ void LEDAnimations::clearAllLeds() {
 }
 
 void LEDAnimations::fillColor() {
-    fill_solid(leds, NUM_LEDS, hue);
+    fill_solid(leds, NUM_LEDS, CHSV(hue, saturation, brightness));
 }
 //
 // enum { SteadyDim, GettingBrighter, GettingDimmerAgain };
@@ -94,10 +97,16 @@ void LEDAnimations::rainbowSlide() {
 
 // random colored speckles that blink in and fade smoothly
 void LEDAnimations::confetti() {
-    uint8_t position = random8(NUM_LEDS);
-    fadeToBlackBy(leds, NUM_LEDS, 50);
+    fadeToBlackBy(leds, NUM_LEDS, 400);
+    uint16_t position = random16(NUM_LEDS);
     leds[position] += CHSV(hue, saturation, brightness);
-    delay(50);
+    position = random16(NUM_LEDS);
+    leds[position] += CHSV(hue, saturation, brightness);
+    position = random16(NUM_LEDS);
+    leds[position] += CHSV(hue, saturation, brightness);
+    position = random16(NUM_LEDS);
+    leds[position] += CHSV(hue, saturation, brightness);
+    delay(100);
 }
 
 // a colored dot sweeping back and forth, with fading trails
