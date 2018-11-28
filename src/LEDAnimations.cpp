@@ -8,8 +8,8 @@ CRGB leds[NUM_LEDS];
 
 typedef void (LEDAnimations::*AnimationList)();
 
-AnimationList animationsRails[] = {&LEDAnimations::confetti, &LEDAnimations::sinelon, &LEDAnimations::juggle,
-                                   &LEDAnimations::fillColor, &LEDAnimations::rainbow,
+AnimationList animationsRails[] = {&LEDAnimations::fillColor, &LEDAnimations::candyCane, &LEDAnimations::sinelon, &LEDAnimations::juggle,
+                                   &LEDAnimations::rainbow,
                                    &LEDAnimations::rainbowSlide,
                                    &LEDAnimations::waterfallRainbowBorder};
 
@@ -77,13 +77,19 @@ void LEDAnimations::twinkle(){
 //       }
 //     }
  }
-
-
-
-
-
-void LEDAnimations::redGreenWhiteSlide(){
-
+bool isWhite = false;
+int swirlColorCounter = 0;
+void LEDAnimations::candyCane(){
+    leds[NUM_LEDS - 1] = isWhite ? CRGB::White : CRGB::Green;
+    swirlColorCounter++;
+    for (int i = 0; i < (NUM_LEDS - 1); i++)
+        leds[i] = leds[i + 1];
+    if(swirlColorCounter >= 35){
+        isWhite = !isWhite;
+        swirlColorCounter = 0;
+    }
+    // add delay?
+    
 }
 
 void LEDAnimations::rainbow() {

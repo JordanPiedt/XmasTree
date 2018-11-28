@@ -25,7 +25,7 @@ public:
 
     void initPixelStates();
     void twinkle();
-    void redGreenWhiteSlide();
+    void candyCane();
 
     void randomSilon();
     void rainbow();
