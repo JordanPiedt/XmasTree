@@ -11,7 +11,7 @@ typedef void (LEDAnimations::*AnimationList)();
 AnimationList animationsAudioReactive[] = {&LEDAnimations::waterfall, &LEDAnimations::equalizerAnimation, &LEDAnimations::sinelon,
                                            &LEDAnimations::confetti, &LEDAnimations::juggle};
 
-AnimationList animationsRails[] = {&LEDAnimations::rainbowSlide, &LEDAnimations::confetti, &LEDAnimations::juggle,
+AnimationList animationsRails[] = {&LEDAnimations::confetti, &LEDAnimations::rainbowSlide, &LEDAnimations::juggle,
                                    &LEDAnimations::fillColor, &LEDAnimations::rainbow,
                                    &LEDAnimations::sinelon,
                                    &LEDAnimations::waterfallRainbowBorder};
