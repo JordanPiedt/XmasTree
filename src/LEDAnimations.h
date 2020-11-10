@@ -23,10 +23,6 @@ public:
     void clearAllLeds();
     void fillColor();
 
-    void initPixelStates();
-    void twinkle();
-    void candyCane();
-
     void randomSilon();
     void rainbow();
     void rainbowSlide();
@@ -36,13 +32,11 @@ public:
     void juggle();
 
     void waterfall();
-    void waterfallBorder(int frequencyValue, int sensitivityValueMinThreshold, int brightness);
-    void waterfallBorderRemote();
     void waterfallRainbowBorder();
 
-    void equalizerBorderOnly();
-    void equalizerLeft(int frequencyValue, int sensitivityThreshold, bool direction);
-    void equalizerRight(int frequencyValue, int sensitivityThreshold, bool direction);
+    void equalizerAnimation();
+    void equalizerLeft(int frequencyValue);
+    void equalizerRight(int frequencyValue);
 };
 
 #endif
